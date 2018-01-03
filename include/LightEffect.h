@@ -23,6 +23,8 @@ public:
 	static LightEffect* create(const char* d);
 	static LightEffect* getEffect(const char* name);
 	lua_State* loadEffect();
+	void getParamType(char* cp_string);
+	uint16_t getParamTypeLength();
 };
 
 

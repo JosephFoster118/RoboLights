@@ -119,9 +119,15 @@ lua_State* LightEffect::loadEffect()
 
 
 
+void LightEffect::getParamType(char* cp_string)
+{
+	strcpy(cp_string,effect_param_type);
+}
 
-
-
+uint16_t LightEffect::getParamTypeLength()
+{
+	return strlen(effect_param_type);
+}
 
 
 

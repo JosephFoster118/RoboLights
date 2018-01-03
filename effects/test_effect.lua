@@ -5,9 +5,21 @@ INIT_PARAM_META = "R,G,B"
 
 segment = 2
 
+R = 0
+G = 0
+B = 0
+
+function initialize(r,g,b)
+	R = r
+	G = g
+	B = b
+end
+
 function render(current_time)
-	local time_dif =  current_time - start_time
-	print("Run time " .. tostring(time_dif))
+	for i = 0, length do
+		setLED(i,R,G,B)
+	end
+	return true
 	
 end
 

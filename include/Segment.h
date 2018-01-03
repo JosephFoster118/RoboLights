@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <stdarg.h>
 #include <time.h>
+#include <sstream>
+#include <string>
 #include "LightEffect.h"
 
 class Segment
@@ -22,12 +24,14 @@ public:
 	static const uint8_t R = 0;
 	static const uint8_t G = 1;
 	static const uint8_t B = 2;
+	static int setLEDProxy(lua_State *L);
 	Segment(uint8_t * data, uint16_t length);
 	void clearSegment();
 	void setLED(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
 	void setBackgroundColor(uint8_t r, uint8_t g, uint8_t b);
 	void renderLights();
 	bool insertEffect(uint8_t lay, const char* name, const char* param);
+	void removeEffect(uint16_t index);
 	~Segment();
 };
 
