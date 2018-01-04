@@ -19,7 +19,6 @@ function render(current_time)
 	for i = 0, length do
 		setLED(i,R,G,B)
 	end
-	return true
 	
 end
 

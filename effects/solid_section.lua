@@ -21,10 +21,13 @@ end
 
 function render(current_time)
 	local time_dif =  current_time - start_time
-	if time_dif > DURATION then
+	if time_dif > DURATION and DURATION > 0 then
 		return true
 	end
 	
+	for i = START, SIZE + START - 1 do
+		setLED(i,R,G,B)
+	end
 	
 	
 	return false

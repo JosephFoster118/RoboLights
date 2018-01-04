@@ -38,6 +38,11 @@ void Segment::clearSegment()
 
 void Segment::setLED(uint8_t index, uint8_t r, uint8_t g, uint8_t b)
 {
+	if(index > segment_length)
+	{
+		printf("Out of segment bounds\n");
+		return;
+	}
 	light_data[index*3 + R] = r;
 	light_data[index*3 + G] = g;
 	light_data[index*3 + B] = b;
@@ -58,6 +63,8 @@ void Segment::renderLights()
 	{
 		if(effects[i] != NULL)
 		{
+			int stack_size = lua_gettop(effects[i]);
+			lua_pop(effects[i], stack_size);
 			lua_getglobal(effects[i], "render");
 			lua_pushnumber(effects[i], (spec.tv_nsec/1.0e9)+spec.tv_sec);
 			int top = lua_gettop(effects[i]);
@@ -65,6 +72,7 @@ void Segment::renderLights()
 			{
 				printf("error running render function!\n");
 				removeEffect(i);
+				return;
 			}
 			////////////////////Check if effect is done////////////////////
 
@@ -88,6 +96,10 @@ bool Segment::insertEffect(uint8_t lay, const char* name, const char* param)
 {
 	
 	LightEffect* ef = LightEffect::getEffect(name);
+	if(ef == NULL)
+	{
+		return false;
+	}
 	char* param_type = new char[ef->getParamTypeLength()];
 	ef->getParamType(param_type);
 	uint16_t effect_param_count = 0;
