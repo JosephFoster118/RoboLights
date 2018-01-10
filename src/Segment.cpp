@@ -38,6 +38,7 @@ void Segment::clearSegment()
 
 void Segment::setLED(uint8_t index, uint8_t r, uint8_t g, uint8_t b)
 {
+	
 	if(index > segment_length)
 	{
 		printf("Out of segment bounds\n");
@@ -228,7 +229,8 @@ bool Segment::insertEffect(uint8_t lay, const char* name, const char* param)
 
 int Segment::setLEDProxy(lua_State *L)
 {
-	if (lua_gettop(L) == 4)
+	
+	if(lua_gettop(L) == 4)
 	{
 		lua_getglobal(L, "___self___");
 		Segment* seg = static_cast<Segment*>(lua_touserdata(L, -1));
@@ -237,7 +239,18 @@ int Segment::setLEDProxy(lua_State *L)
 		uint8_t g = lua_tointeger(L, 3);
 		uint8_t b = lua_tointeger(L, 4);
     	//printf("setting non-alpha %3d %3d %3d at %3d\n", r, g, b, index);
-		seg->setLED(index, r, g, b);
+		int stack_size = lua_gettop(L);
+		lua_pop(L, stack_size);
+		lua_getglobal(L, "LED_START_AT_1");
+		int stat = lua_isboolean(L,-1);
+		if(!stat)
+		{
+			seg->setLED(index, r, g, b);
+		}
+		else
+		{
+			seg->setLED(index - 1, r, g, b);
+		}
 	}
 	else if(lua_gettop(L) == 5)
 	{

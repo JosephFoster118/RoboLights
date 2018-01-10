@@ -3,6 +3,8 @@ EFFECT_NAME = "TestEffect"
 INIT_PARAM = "int,int,int"
 INIT_PARAM_META = "R,G,B"
 
+LED_START_AT_1 = true
+
 segment = 2
 
 R = 0
@@ -16,7 +18,7 @@ function initialize(r,g,b)
 end
 
 function render(current_time)
-	for i = 0, length do
+	for i = 1, length do
 		setLED(i,R,G,B)
 	end
 	
