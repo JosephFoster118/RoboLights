@@ -104,7 +104,7 @@ bool Segment::insertEffect(uint8_t lay, const char* name, const char* param)
 	{
 		return false;
 	}
-	char* param_type = new char[ef->getParamTypeLength()];
+	char* param_type = new char[ef->getParamTypeLength() + 1];
 	ef->getParamType(param_type);
 	uint16_t effect_param_count = 0;
 	for(int i = 0; param_type[i]!=0; i++)
@@ -162,7 +162,9 @@ bool Segment::insertEffect(uint8_t lay, const char* name, const char* param)
 	////////////////////Push functions to state////////////////////
 	lua_register(l,"setLED",Segment::setLEDProxy);
 	////////////////////Initialize effect (Make sure you have the correct params!)////////////////////
-	char* given_param = new char[strlen(param)];
+	char* given_param = new char[strlen(param) + 5];
+	//char * o_given_param = given_param;
+	//char given_param[2048];
 	strcpy(given_param, param);
 	for(int i = 0; given_param[i]!=0; i++)
 	{
@@ -226,6 +228,7 @@ bool Segment::insertEffect(uint8_t lay, const char* name, const char* param)
 	effects[lay] = l;
 	
 	delete [] param_type;
+	//printf("%d MEM_LOC\n", (int)given_param);
 	delete [] given_param;
 	return true;
 }
