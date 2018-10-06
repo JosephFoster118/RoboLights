@@ -9,6 +9,7 @@ LightEffect::LightEffect(const char* d, const char* type, const char* meta)
 	effect_param_meta = new char[strlen(meta) + 1];
 	strcpy(effect_param_meta, meta);
 	//load file into buffer for fatser loading in run time
+	//load file into buffer for fatser loading in run time
 	FILE* lua_file = fopen(d,"r");
 	if(lua_file == NULL)//failed to load
 	{

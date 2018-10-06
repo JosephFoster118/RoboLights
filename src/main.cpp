@@ -9,14 +9,15 @@ int main()
 {
 	printf("RoboLights\n");
 	RoboLights* robo_lights = new RoboLights(4,8,8,8,16);
-	robo_lights->printLEDs();
+	//robo_lights->printLEDs();
 	
 	LightEffect* test = LightEffect::getEffect("SolidSection");
 	robo_lights->insertEffect(0,1,"TestEffect","1,2,20");
 	//robo_lights->insertEffect(1,0,"SolidSection","200,118,64,2,2,10.0");
 	robo_lights->insertEffect(3,0,"sweep","200,118,64,4,45.0,-1");
 	robo_lights->insertEffect(2,0,"sweep","200,118,64,4,-30.0,-1");
-	robo_lights->insertEffect(0,0,"random","0.033");
+	//robo_lights->insertEffect(0,0,"random","0.033");
+	robo_lights->insertEffect(1,0,"JitterBug", "255,255,255,2,0.25,-1");
 	for(int i = 0;; i++)
 	{
 		usleep(33333);

@@ -72,6 +72,9 @@ void Segment::renderLights()
 			if (lua_pcall(effects[i], 1, 1, 0) != 0)
 			{
 				printf("error running render function!\n");
+				printf("Lua stack responded with:\n\n");
+				printf("%s\n", lua_tostring(effects[i], -1));
+				printf("\n");
 				removeEffect(i);
 				return;
 			}
