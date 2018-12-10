@@ -24,6 +24,14 @@ Segment::Segment(uint8_t * data, uint16_t length)
 
 Segment::~Segment()
 {
+	printf("DEL\n");
+	for(int i = 0; i < layer_count; i++)
+	{
+		if(effects[i] != NULL)
+		{
+			removeEffect(i);
+		}
+	}
 	SAFE_DELETE_ARRAY(effects);
 }
 
@@ -145,8 +153,9 @@ bool Segment::insertEffect(uint8_t lay, const char* name, const char* param)
 	printf("POINT %d\n",1);
 	if(effects[lay] != NULL)
 	{
-		lua_close(effects[lay]);
-		return false;
+		removeEffect(lay);
+		//lua_close(effects[lay]);
+		//return false;
 	}
 	lua_pushinteger(l,segment_length);
 	lua_setglobal(l, "length");

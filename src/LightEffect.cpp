@@ -112,7 +112,7 @@ lua_State* LightEffect::loadEffect()
     {
         printf("error: %s", lua_tostring(L, -1));
 		
-		
+		lua_close(L);
         return NULL;
     }
 	return L;

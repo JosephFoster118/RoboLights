@@ -85,6 +85,7 @@ RoboLights::~RoboLights()
 	{
 		SAFE_DELETE(segment[i]);
 	}
+	SAFE_DELETE_ARRAY(segment);
 	SAFE_DELETE_ARRAY(led_data);
 	SAFE_DELETE_ARRAY(segment_sizes);
 }
